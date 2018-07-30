@@ -4,39 +4,43 @@ import CardList from '../components/CardList';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from '../components/ErrorBoundry';
 import './App.css';
-// import { friends } from './friends';
+
+// Redux
+import { setSearchField, fetchFriends } from '../actions/actions';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return {
+    searchField: state.searchFriends.searchField,
+    friends: state.fetchFriends.friends,
+    isPending: state.fetchFriends.isPending,
+    error: state.fetchFriends.error
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+    onFetchFriends: () => dispatch(fetchFriends())    //fetchFriends(dispatch)
+  }
+}
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      friends: [],
-      searchfield: ''
-    }
-  }
-
   componentDidMount() {
-    return fetch('https://jsonplaceholder.typicode.com/users')
-      .then(resp => resp.json())
-      .then(users => this.setState({ friends: users }));
-  }
-
-  onSearchChange = (event) => {
-    this.setState({ searchfield: event.target.value });
+    this.props.onFetchFriends();
   }
 
   render() {
-    const { friends, searchfield } = this.state;
-    const filteredFriends = friends.filter(robot => robot.name.toLowerCase().includes(searchfield.toLowerCase()));
+    const { searchField, onSearchChange, friends, isPending } = this.props;
+    const filteredFriends = friends.filter(robot => robot.name.toLowerCase().includes(searchField.toLowerCase()));
 
-    return (!friends.length)
+    return isPending
       ? <h1>Loading...</h1>
       :
       (
         <div className='tc' >
           <header className='pb2'>
             <h1 className='f1' >Animated Friends</h1>
-            <SearchBox searchChange={this.onSearchChange} />
+            <SearchBox searchChange={onSearchChange} />
           </header>
           <Scroll>
             <ErrorBoundry>
@@ -48,4 +52,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
