@@ -2,7 +2,7 @@
   "name": "animatedfriends",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/ampratt/animatedFriends",
+  "homepage": "https://ampratt.github.io/animatedfriends",
   "dependencies": {
     "gh-pages": "^1.2.0",
     "react": "^16.4.1",
