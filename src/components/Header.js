@@ -20,7 +20,7 @@ class Header extends Component {
     return (
       <div>
         <h1 className='f1' >Animated Friends</h1>
-        <CounterButton color={'red'} />
+        <CounterButton color={'#0ccac4'} />
       </div>
     )
   }
