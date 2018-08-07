@@ -7,6 +7,7 @@ const CardList = ({ friends }) => {
   // if (true) {
   //   throw new Error('Oops!');
   // }
+  console.log('Cardlist');
   return (
     <div>
       {

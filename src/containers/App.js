@@ -4,6 +4,7 @@ import CardList from '../components/CardList';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from '../components/ErrorBoundry';
 import './App.css';
+import Header from '../components/Header.js';
 
 // Redux
 import { setSearchField, fetchFriends } from '../actions/actions';
@@ -39,7 +40,7 @@ class App extends Component {
       (
         <div className='tc' >
           <header className='pb2'>
-            <h1 className='f1' >Animated Friends</h1>
+            <Header />
             <SearchBox searchChange={onSearchChange} />
           </header>
           <Scroll>
